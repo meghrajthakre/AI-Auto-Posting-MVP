@@ -1,0 +1,252 @@
+@import "tailwindcss";
+
+/* =====================
+   Base
+===================== */
+
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* =====================
+   Navbar
+===================== */
+
+.animate-nav {
+  animation: nav-enter 0.8s var(--ease-out-expo) forwards;
+}
+
+@keyframes nav-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-btn {
+  border: 1px solid black;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: all 0.25s var(--ease-out-expo);
+}
+
+.nav-btn:hover {
+  background: black;
+  color: #f6d84a;
+  transform: translateY(-1px);
+}
+
+/* =====================
+   Logo Entrance
+===================== */
+
+@keyframes logo-enter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.94);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    filter: blur(0);
+  }
+}
+
+.animate-logo {
+  animation: logo-enter 1.2s var(--ease-out-expo) forwards;
+}
+
+/* =====================
+   Text Entrance
+===================== */
+
+@keyframes text-enter {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-text {
+  animation: text-enter 1s var(--ease-out-expo) forwards;
+  animation-delay: 0.4s;
+}
+
+/* =====================
+   CTA Button
+===================== */
+
+.cta-btn {
+  border: 1px solid black;
+  padding: 10px 28px;
+  border-radius: 999px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: transform 0.25s var(--ease-out-expo),
+              box-shadow 0.25s var(--ease-out-expo),
+              background 0.25s var(--ease-out-expo);
+}
+
+.cta-btn:hover {
+  background: black;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+}
+
+/* =====================
+   Floating Icons (Premium Drift)
+===================== */
+
+@keyframes drift {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(6px, -12px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.floating {
+  animation: drift 8s ease-in-out infinite;
+  opacity: 0.9;
+}
+
+.floating:nth-of-type(1) { animation-delay: 0s; }
+.floating:nth-of-type(2) { animation-delay: 1.2s; }
+.floating:nth-of-type(3) { animation-delay: 2.4s; }
+.floating:nth-of-type(4) { animation-delay: 3.6s; }
+
+/* =====================
+   Whisk Logo Motion
+===================== */
+
+.whisk-center {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: whisk-float 6s ease-in-out infinite;
+}
+
+@keyframes whisk-float {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -54%) scale(1.02);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* =====================
+   Scribble SVG (if used)
+===================== */
+
+.scribble {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  animation: draw-line 2.5s ease forwards;
+}
+
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+/* =====================
+   Whisk Icons
+===================== */
+
+.whisk-icon {
+  opacity: 0;
+  transform-origin: center;
+  animation-fill-mode: forwards;
+}
+
+.icon-star {
+  animation: 
+    icon-drop 0.6s var(--ease-out-expo) forwards,
+    rotate-sway 3s ease-in-out infinite;
+  animation-delay: 0.4s, 0s;
+  transform-origin: center; /* apni jagah me rotate hone ke liye */
+}
+
+.icon-zig {
+  animation: 
+    icon-slide-left 0.6s var(--ease-out-expo) forwards,
+    rotate-sway 4s ease-in-out infinite;
+  animation-delay: 0.6s, 0s;
+  transform-origin: center;
+}
+
+.icon-triangle {
+  animation: 
+    icon-rise 0.6s var(--ease-out-expo) forwards,
+    rotate-sway 3.5s ease-in-out infinite;
+  animation-delay: 0.8s, 0s;
+  transform-origin: center;
+}
+
+/* =====================
+   Icon Animations
+===================== */
+
+@keyframes icon-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes icon-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(-8px) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes icon-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes rotate-sway {
+  0%   { transform: rotate(-15deg); }
+  50%  { transform: rotate(15deg); }
+  100% { transform: rotate(-15deg); }
+}
