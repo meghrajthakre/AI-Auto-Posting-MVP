@@ -11,7 +11,17 @@
 body {
   font-family: "JetBrains Mono", monospace;
 }
+/* Default text selection */
+::selection {
+  background-color: #ee28e4; /* jo color chahiye, yaha set karo */
+  color: #ffffff;           /* text color selection ke liye */
+}
 
+/* Firefox support ke liye */
+::-moz-selection {
+  background-color: #FF5733;
+  color: #ffffff;
+}
 /* =====================
    Navbar
 ===================== */

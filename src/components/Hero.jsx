@@ -2,8 +2,28 @@ import React, { useEffect } from "react";
 import WhiskMark from "./WhiskMark";
 import gsap from "gsap";
 import { Chrome } from "lucide-react";
-// 774878697524-snalcvisrtlgsl2fvl5nmedruss3gi0t.apps.googleusercontent.com
-const Hero = () => {
+import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
+import { FcGoogle } from "react-icons/fc";
+import Theme from "../theme/Theme";
+
+const CLIENT_ID = "774878697524-snalcvisrtlgsl2fvl5nmedruss3gi0t.apps.googleusercontent.com";
+
+const HeroContent = () => {
+  const handleSuccess = (response) => {
+    console.log("Login Success:", response);
+    // Handle the response - you can send this to your backend
+    // The response contains the access token
+  };
+
+  const handleError = (error) => {
+    console.log("Login Failed:", error);
+  };
+
+  const login = useGoogleLogin({
+    onSuccess: handleSuccess,
+    onError: handleError,
+  });
+
   useEffect(() => {
     // Set initial states
     gsap.set(".img-left, .img-right", { opacity: 0, scale: 0.8 });
@@ -25,41 +45,33 @@ const Hero = () => {
       duration: 1.2,
       ease: "back.out(1.4)",
     })
-    
-    // Left images cascade in
-    .to(".img-left", {
-      x: 0,
-      opacity: 0.9,
-      scale: 1,
-      stagger: 0.15,
-      duration: 0.8,
-      ease: "power2.out",
-    }, "-=0.6")
-    
-    // Right images cascade in
-    .to(".img-right", {
-      x: 0,
-      opacity: 0.9,
-      scale: 1,
-      stagger: 0.15,
-      duration: 0.8,
-      ease: "power2.out",
-    }, "-=0.6")
-    
-    // Text fades up
-    .to(".animate-text", {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "power2.out",
-    }, "-=0.4")
-    
-    // Nav button slides in
-    .to(".nav-btn", {
-      opacity: 1,
-      x: 0,
-      duration: 0.5,
-    }, "-=0.5");
+      .to(".img-left", {
+        x: 0,
+        opacity: 0.9,
+        scale: 1,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: "power2.out",
+      }, "-=0.6")
+      .to(".img-right", {
+        x: 0,
+        opacity: 0.9,
+        scale: 1,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: "power2.out",
+      }, "-=0.6")
+      .to(".animate-text", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+      }, "-=0.4")
+      .to(".nav-btn", {
+        opacity: 1,
+        x: 0,
+        duration: 0.5,
+      }, "-=0.5");
 
     // Floating animation for social icons
     gsap.to(".floating", {
@@ -75,11 +87,13 @@ const Hero = () => {
         from: "random"
       }
     });
-
   }, []);
 
   return (
     <div className="relative min-h-screen bg-[#FAD502] overflow-hidden font-mono">
+       {/* Theme Toggle */}
+      {/* <Theme /> */}
+
       {/* Navbar */}
       <nav className="absolute top-4 left-6 flex items-center gap-3 z-50">
         <span className="text-2xl font-semibold tracking-tight">
@@ -126,16 +140,27 @@ const Hero = () => {
           Your AI engine for effortless <br /> social posting.
         </h1>
 
-        <p className="font-mono pb-5 uppercase font-extralight">
+        <p className="font-mono pb-5 uppercase font-extralight text-sm md:text-base">
           Sign in and let's see what you can dig up.
         </p>
 
-        <button className="cta-btn bg-white text-black px-8 py-3 rounded-full text-base font-semibold cursor-pointer hover:bg-gray-100 transition-colors flex items-center gap-2">
-          <Chrome size={20} />
+        <button
+          onClick={() => login()}
+          className="cta-btn dark:bg-black dark:text-white px-8 py-3 rounded-full text-base font-semibold cursor-pointer hover:bg-gray-100 hover:shadow-lg transition-all duration-300 flex items-center gap-3 border-2 border-black/10"
+        >
+          <FcGoogle size={20} />
           Sign In with Google
         </button>
       </div>
     </div>
+  );
+};
+
+const Hero = () => {
+  return (
+    <GoogleOAuthProvider clientId={CLIENT_ID}>
+      <HeroContent />
+    </GoogleOAuthProvider>
   );
 };
 
