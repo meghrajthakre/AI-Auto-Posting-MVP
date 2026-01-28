@@ -1,11 +1,14 @@
 import React from 'react'
 import Hero from './components/Hero'
+import { Route, Routes } from 'react-router-dom'
 
 const App = () => {
   return (
-    <div className=''> 
-      <Hero />
-    </div>
+    <Routes>
+      <Route path="/" element={<Hero />} />
+      {/* <Route path="/login" element={<Login />} /> */}
+      {/* <Route path="/profile" element={<Profile />} /> */}
+    </Routes>
   )
 }
 
